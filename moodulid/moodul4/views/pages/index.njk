@@ -1,0 +1,149 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/coffee-card.njk" import coffeeCard %}
+{% block content %}
+
+{# HERO #}
+<section class="hero">
+  <div class="hero__media">
+    <video class="hero__video" autoplay muted loop playsinline poster="/assets/img/hero.webp" aria-hidden="true">
+      <source src="/assets/img/hero-loop.mp4" type="video/mp4" />
+    </video>
+    <picture class="hero__dark-image" aria-hidden="true">
+      <source srcset="/assets/img/hero-dark.avif" type="image/avif" />
+      <img src="/assets/img/hero-dark.webp" alt="" width="1672" height="941" />
+    </picture>
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">Väikepartii röstikoda · Tallinn</span>
+      <h1 class="hero__title">Hea kohv<br /><em>ei kiirusta.</em></h1>
+      <p class="hero__lede">
+        Käsitsi röstitud väikestes partiides. Iga tass väärib aega —
+        <em>every cup, deliberately crafted.</em>
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/kohvisordid">Vaata kohvisid</a>
+        <a class="btn btn--outline" href="#missioon">Meie lugu →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# MISSION #}
+<section class="section section--surface" id="missioon">
+  <div class="wrap mission">
+    <div class="mission__text">
+      <span class="eyebrow">Miks aeglaselt?</span>
+      <h2>Hea kohv ei kiirusta.</h2>
+      <p>
+        Röstikoda on nime saanud laisa, kuid õnneliku laisiku järgi. Me usume, et
+        parimat kohvi ei saa kiirustades. Igal partiil on oma tempo — seda röstitakse
+        aeglaselt ja õrnalt, et säiliks päritolu iseloom.
+      </p>
+      <p>
+        Meie röstimiskoda on avatud laupäeviti. Tule, kuula röstri helisid, tunne
+        lõhna — ja mine aeglaselt.
+      </p>
+    </div>
+    <div class="mission__media">
+      <picture class="mission__mascot mission__mascot--light">
+        <source srcset="/assets/img/mascot.avif" type="image/avif" />
+        <img src="/assets/img/mascot.webp" alt="Slow Pouri maskott — laisik" loading="lazy" width="600" height="450" />
+      </picture>
+      <img class="mission__mascot mission__mascot--dark" src="/assets/img/mascot-dark.webp" alt="" aria-hidden="true" loading="lazy" width="600" height="600" />
+      <div class="mission__stat">
+        <span class="mission__stat-num num">6</span>
+        <span class="mission__stat-label">päritoluriiki</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# NEWEST COFFEES — server-rendered from the database #}
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Uued lisandused</span>
+        <h2>Värsked sordid</h2>
+      </div>
+      <a class="btn btn--outline" href="/kohvisordid">Kõik sordid →</a>
+    </div>
+    <div class="card-grid">
+      {% for c in featured %}{{ coffeeCard(c) }}{% endfor %}
+    </div>
+  </div>
+</section>
+
+{# EVENTS #}
+<section class="section section--surface" id="sundmused">
+  <div class="wrap">
+    <div class="section-head section-head--stack">
+      <span class="eyebrow">Kalender</span>
+      <h2>Sündmused &amp; uudised</h2>
+    </div>
+    <ul class="events">
+      <li class="event">
+        <span class="event__date num">14. juuni</span>
+        <div class="event__info">
+          <span class="event__title">Laupäevane cupping-seanss</span>
+          <span class="event__loc">Röstikoda, Tallinn</span>
+        </div>
+        <span class="event__spots num">8 kohta</span>
+        <a class="event__cta" href="/kontakt">Registreeru →</a>
+      </li>
+      <li class="event">
+        <span class="event__date num">21. juuni</span>
+        <div class="event__info">
+          <span class="event__title">Käsitsi valamise töötuba (V60)</span>
+          <span class="event__loc">Röstikoda, Tallinn</span>
+        </div>
+        <span class="event__spots num">12 kohta</span>
+        <a class="event__cta" href="/kontakt">Registreeru →</a>
+      </li>
+      <li class="event">
+        <span class="event__date num">05. juuli</span>
+        <div class="event__info">
+          <span class="event__title">Päritolujutt: Etioopia</span>
+          <span class="event__loc">Online</span>
+        </div>
+        <span class="event__spots num">30 kohta</span>
+        <a class="event__cta" href="/kontakt">Registreeru →</a>
+      </li>
+      <li class="event">
+        <span class="event__date num">19. juuli</span>
+        <div class="event__info">
+          <span class="event__title">Suvine kohviturg</span>
+          <span class="event__loc">Telliskivi Loomelinnak</span>
+        </div>
+        <span class="event__spots"></span>
+        <a class="event__cta" href="/kontakt">Registreeru →</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{# POPULAR SLIDER — server-rendered from the database #}
+<section class="section popular">
+  <div class="wrap popular__head">
+    <span class="eyebrow">Populaarsed</span>
+    <h2>Meie lemmikud</h2>
+  </div>
+  <div class="popular__track">
+    {% for c in popular %}{{ coffeeCard(c) }}{% endfor %}
+  </div>
+</section>
+
+{# CTA BAND #}
+<section class="cta-band">
+  <div class="wrap cta-band__inner">
+    <div>
+      <h2 class="cta-band__title">Telli otse meie rösterist.</h2>
+      <p class="cta-band__text">Tasuta kohaletoimetamine tellimustest 35 €.</p>
+    </div>
+    <a class="btn btn--ghost-light" href="/tellimus">Vali oma kohv</a>
+  </div>
+</section>
+
+{% endblock %}

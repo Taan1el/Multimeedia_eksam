@@ -1,0 +1,34 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Kontakt</span>
+    <h1 class="page-head__title">Küsi, kirjuta, tule.</h1>
+    <p class="page-head__sub">Töötubade, tellimuste ja röstikoja külastuse küsimused jõuavad otse meieni.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact">
+    <div class="contact__info">
+      <h2>Röstikoda</h2>
+      <ul class="contact__list">
+        <li><span>Aadress</span><strong>Roostiku 12, Tallinn</strong></li>
+        <li><span>E-post</span><strong>tere@slowpour.ee</strong></li>
+        <li><span>Avatud</span><strong>E-R 8-18 · L 9-16</strong></li>
+      </ul>
+    </div>
+    <div class="contact__form-wrap">
+      {% include "partials/errors.njk" %}
+      {% if sent %}<div class="form-status">Sõnum saadetud.</div>{% endif %}
+      <form class="contact-form" method="post" action="/kontakt">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+        <label class="field"><span>Nimi</span><input name="name" value="{{ form.name or '' }}" required /></label>
+        <label class="field"><span>E-post</span><input name="email" type="email" value="{{ form.email or '' }}" required /></label>
+        <label class="field"><span>Sõnum</span><textarea name="message" rows="6" required>{{ form.message or '' }}</textarea></label>
+        <button class="btn btn--primary" type="submit">Saada</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

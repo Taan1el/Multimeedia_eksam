@@ -1,0 +1,17 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Slow Pour</span>
+    <h1 class="page-head__title">{{ heading }}</h1>
+    {% if body %}<p class="page-head__sub">{{ body }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap narrow">
+    <a class="btn btn--primary" href="/kohvisordid">Vaata kohvisid</a>
+    <a class="btn btn--outline" href="/kontakt">Võta ühendust</a>
+  </div>
+</section>
+{% endblock %}

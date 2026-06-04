@@ -1,0 +1,61 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/coffee-card.njk" import coffeeCard %}
+{% block content %}
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Meie sortiment</span>
+    <h1 class="page-head__title">Kohvisordid</h1>
+    <p class="page-head__sub">
+      Käsitsi röstitud väikepartiid. Leia oma lemmik päritolu, röstitaseme ja hinna järgi.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <form class="filter-bar" method="get" action="/kohvisordid">
+      <div class="filter-bar__controls">
+        <label class="field-inline">
+          <span>Päritolu</span>
+          <select name="paritolu" data-autosubmit>
+            <option value="">Kõik</option>
+            {% for p in origins %}
+              <option value="{{ p }}" {% if query.paritolu == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field-inline">
+          <span>Röstitase</span>
+          <select name="rostitase" data-autosubmit>
+            <option value="">Kõik</option>
+            {% for r in roasts %}
+              <option value="{{ r }}" {% if query.rostitase == r %}selected{% endif %}>{{ r }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="field-inline">
+          <span>Hind</span>
+          <select name="sort" data-autosubmit>
+            <option value="">Soovituslik</option>
+            <option value="asc" {% if query.sort == "asc" %}selected{% endif %}>Odavaim enne</option>
+            <option value="desc" {% if query.sort == "desc" %}selected{% endif %}>Kalleim enne</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn--primary btn--sm">Filtreeri</button>
+        <a class="btn btn--outline btn--sm" href="/kohvisordid">Lähtesta</a>
+      </div>
+      <span class="filter-bar__count num">{{ coffees.length }} toodet</span>
+    </form>
+
+    {% if coffees.length %}
+      <div class="card-grid">
+        {% for c in coffees %}{{ coffeeCard(c) }}{% endfor %}
+      </div>
+    {% else %}
+      <p class="data-note">Valitud filtritele ei vastanud ükski sort.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

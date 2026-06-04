@@ -1,0 +1,22 @@
+{% macro coffeeCard(c) %}
+<article class="coffee-card">
+  <a class="coffee-card__media" href="/kohvisordid/{{ c.id }}" aria-label="Vaata: {{ c.nimi }}">
+    <picture>
+      <source srcset="/assets/img/{{ c.img }}.avif" type="image/avif" />
+      <img src="/assets/img/{{ c.img }}.webp" alt="{{ c.nimi }} — kohvipakk" loading="lazy" width="400" height="400" />
+    </picture>
+  </a>
+  <div class="coffee-card__body">
+    <div class="coffee-card__tags">
+      <span class="tag">{{ c.origin }}</span>
+      <span class="tag tag--roast">{{ c.rostitase }}</span>
+    </div>
+    <h3 class="coffee-card__name">{{ c.nimi }}</h3>
+    <p class="coffee-card__origin">{{ c.paritolu }}</p>
+    <div class="coffee-card__foot">
+      <span class="coffee-card__price num">€{{ c.priceFmt }}</span>
+      <a class="btn btn--outline btn--sm" href="/kohvisordid/{{ c.id }}">Vaata →</a>
+    </div>
+  </div>
+</article>
+{% endmacro %}

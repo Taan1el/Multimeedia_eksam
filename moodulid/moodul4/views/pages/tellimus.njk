@@ -1,0 +1,66 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Telli</span>
+    <h1 class="page-head__title">Tellimusleht</h1>
+    <p class="page-head__sub">Vali kohv, jahvatus ja kogus. Tellimus salvestatakse andmebaasi.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap order">
+    <form class="order__form" method="post" action="/tellimus">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+      {% include "partials/errors.njk" %}
+      {% if sent %}<div class="form-status">Tellimus salvestatud.</div>{% endif %}
+
+      <fieldset class="order__group">
+        <legend>Kohv</legend>
+        <label class="field">
+          <span>Kohvisort</span>
+          <select name="coffeeId" required>
+            {% for coffee in coffees %}
+              <option value="{{ coffee.id }}" {% if form.coffeeId == coffee.id %}selected{% endif %}>{{ coffee.nimi }} - {{ coffee.priceFmt }} €</option>
+            {% endfor %}
+          </select>
+        </label>
+        <div class="order__row">
+          <label class="field"><span>Kogus</span><input name="quantity" type="number" min="1" max="20" value="{{ form.quantity or 1 }}" required /></label>
+          <label class="field">
+            <span>Jahvatus</span>
+            <select name="grind" required>
+              <option value="whole" {% if form.grind == "whole" %}selected{% endif %}>Terved oad</option>
+              <option value="filter" {% if form.grind == "filter" %}selected{% endif %}>Filter</option>
+              <option value="espresso" {% if form.grind == "espresso" %}selected{% endif %}>Espresso</option>
+              <option value="french-press" {% if form.grind == "french-press" %}selected{% endif %}>French press</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="order__group">
+        <legend>Kontakt</legend>
+        <div class="order__row">
+          <label class="field"><span>Nimi</span><input name="customerName" value="{{ form.customerName or '' }}" required /></label>
+          <label class="field"><span>E-post</span><input name="email" type="email" value="{{ form.email or '' }}" required /></label>
+        </div>
+        <label class="field"><span>Telefon</span><input name="phone" value="{{ form.phone or '' }}" /></label>
+        <label class="field"><span>Aadress</span><textarea name="address" rows="3" required>{{ form.address or '' }}</textarea></label>
+        <label class="field"><span>Märkus</span><textarea name="notes" rows="3">{{ form.notes or '' }}</textarea></label>
+      </fieldset>
+
+      <button class="btn btn--primary" type="submit">Saada tellimus</button>
+    </form>
+
+    <aside class="order-summary">
+      <h2 class="order-summary__title">Valitud kohv</h2>
+      {% if selected %}
+        <div class="order-summary__row"><span>{{ selected.nimi }}</span><strong>{{ selected.priceFmt }} €</strong></div>
+        <div class="order-summary__row muted"><span>{{ selected.paritolu }}</span><span>{{ selected.rostitase }}</span></div>
+      {% endif %}
+      <p class="order-summary__note">Lõplik summa arvutatakse serveris kohvisordi hinna ja koguse põhjal.</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}

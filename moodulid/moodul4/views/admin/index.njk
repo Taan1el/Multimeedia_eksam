@@ -1,0 +1,46 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Admin</span>
+    <h1 class="page-head__title">Kohvisordid</h1>
+    <p class="page-head__sub">Lisa, muuda ja kustuta andmebaasis olevaid kohvisorte.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="admin-actions">
+      <a class="btn btn--primary" href="/admin/kohvisordid/new">Lisa kohvisort</a>
+      <form method="post" action="/admin/logout">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+        <button class="btn btn--outline" type="submit">Logi välja</button>
+      </form>
+    </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Nimi</th><th>Päritolu</th><th>Röst</th><th>Hind</th><th></th></tr>
+        </thead>
+        <tbody>
+          {% for coffee in coffees %}
+          <tr>
+            <td>{{ coffee.nimi }}</td>
+            <td>{{ coffee.paritolu }}</td>
+            <td>{{ coffee.rostitase }}</td>
+            <td class="num">{{ coffee.hind }} €</td>
+            <td class="admin-table__actions">
+              <a class="btn btn--outline btn--sm" href="/admin/kohvisordid/{{ coffee.id }}/edit">Muuda</a>
+              <form method="post" action="/admin/kohvisordid/{{ coffee.id }}/delete">
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+                <button class="btn btn--outline btn--sm" type="submit">Kustuta</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

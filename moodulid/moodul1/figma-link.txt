@@ -1,0 +1,4 @@
+Figma fail:
+https://www.figma.com/design/4h5Qsf4RIf5z8wovRGvO6C
+
+Moodul 1 eksporditav `.fig` fail tuleb lisada siia kausta enne lõplikku zippi.

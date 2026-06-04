@@ -1,0 +1,27 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--on-dark">Admin</span>
+    <h1 class="page-head__title">Logi sisse</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap narrow">
+    {% include "partials/errors.njk" %}
+    <form class="form-card" method="post" action="/admin/login">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+      <label class="field">
+        <span>E-post</span>
+        <input name="email" type="email" value="{{ form.email or '' }}" required />
+      </label>
+      <label class="field">
+        <span>Parool</span>
+        <input name="password" type="password" required />
+      </label>
+      <button class="btn btn--primary" type="submit">Logi sisse</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/coffee-card.njk" import coffeeCard %}
+{% block content %}
+
+<section class="section">
+  <div class="wrap detail">
+    <div class="detail__media">
+      <picture>
+        <source srcset="/assets/img/{{ coffee.img }}.avif" type="image/avif" />
+        <img class="carousel__img" src="/assets/img/{{ coffee.img }}.webp" alt="{{ coffee.nimi }} — kohvipakk" width="600" height="600" />
+      </picture>
+    </div>
+
+    <div class="detail__info">
+      <div class="detail__tags">
+        <span class="tag">{{ coffee.origin }}</span>
+        <span class="tag tag--roast">{{ coffee.rostitase }}</span>
+      </div>
+      <h1 class="detail__name">{{ coffee.nimi }}</h1>
+      <p class="detail__price num">€{{ coffee.priceFmt }}</p>
+      <p class="detail__desc">{{ coffee.kirjeldus }}</p>
+      <dl class="specs">
+        <div class="specs__row"><dt>Päritolu</dt><dd>{{ coffee.paritolu }}</dd></div>
+        <div class="specs__row"><dt>Röstitase</dt><dd>{{ coffee.rostitase }}</dd></div>
+        <div class="specs__row"><dt>Maitseprofiil</dt><dd>{{ coffee.notes | join(", ") }}</dd></div>
+        <div class="specs__row"><dt>Kaal</dt><dd>{{ coffee.kaal }}</dd></div>
+      </dl>
+      <a class="btn btn--primary detail__cta" href="/tellimus?id={{ coffee.id }}">Lisa tellimusse</a>
+    </div>
+  </div>
+</section>
+
+{% if related.length %}
+<section class="section section--surface">
+  <div class="wrap">
+    <div class="section-head section-head--stack">
+      <span class="eyebrow">Sarnased sordid</span>
+      <h2>Sulle võiks veel maitseda</h2>
+    </div>
+    <div class="card-grid">
+      {% for c in related %}{{ coffeeCard(c) }}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

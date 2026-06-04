@@ -1,22 +1,23 @@
 # Multimeedia eksam - Slow Pour
 
-Lõpurepo sisaldab Slow Pour eksamitöö moodulite pakette ja GitHub Pages jaoks ehitatud front-end lehte.
+Lõpurepo sisaldab Slow Pour eksamitöö ühendvaadet: GitHub Pages jaoks ehitatud
+front-endi ning kõigi moodulite kaustu ja pakette.
 
 ## Sisu
 
 - `index.html` ja teised HTML failid - front-end lehe ehitatud versioon
 - `assets/` - front-endi stiilid, skriptid, fondid ja pildid
-- `moodulid/` - moodulite zip-failid
+- `moodulid/moodul1` kuni `moodulid/moodul4` - moodulite sisu kaustadena
+- `moodulid/*.zip` - moodulite pakendatud väljundid
 - `repo-lingid.txt` - kõigi GitHub repode ja avaliku lehe lingid
 
 ## Moodulid
 
-- `moodul1.zip` - veebikujunduse materjalid ja renderdused
-- `moodul2.zip` - pildimaterjal ja promptid
-- `moodul3.zip` - front-end lähtekood ja assetid
-- `moodul4.zip` - back-end kood, dokumentatsioon ja repo link
-
-Moodulite pakette saab enne lõplikku esitamist uuendada.
+- `moodulid/moodul1` - veebikujunduse materjalid ja renderdused
+- `moodulid/moodul2` - AI pildimaterjal, optimeeritud failid ja promptid
+- `moodulid/moodul3` - front-end lähtekood
+- `moodulid/moodul4` - back-end kood ja dokumentatsioon
+- `moodulid/moodul1.zip` kuni `moodulid/moodul4.zip` - moodulite zip-väljundid
 
 ## Avalik leht
 

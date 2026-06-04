@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.sqlite
+*.sqlite.bak
+*.sqlite-journal
+data/
+*.log
+dist/

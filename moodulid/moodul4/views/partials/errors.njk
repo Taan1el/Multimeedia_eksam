@@ -1,0 +1,7 @@
+{% if errors and errors.length %}
+  <div class="form-status form-status--error">
+    {% for error in errors %}
+      <p>{{ error.msg }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
