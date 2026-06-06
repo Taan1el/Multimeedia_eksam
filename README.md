@@ -1,26 +1,53 @@
-# Multimeedia eksam - Slow Pour
+# Multimeedia eksam: Slow Pour
 
-Lõpurepo sisaldab Slow Pour eksamitöö ühendvaadet: GitHub Pages jaoks ehitatud
-front-endi ning kõigi moodulite kaustu ja pakette.
+Taaniel Vananurm, MM-23
+
+Lõpurepo ühendab Slow Pour eksamitöö neli moodulit. Repo juures olevad HTML- ja
+asset-failid moodustavad GitHub Pagesis töötava front-endi. Moodulite lähtekood
+asub kaustas `moodulid/`.
 
 ## Sisu
 
-- `index.html` ja teised HTML failid - front-end lehe ehitatud versioon
-- `assets/` - front-endi stiilid, skriptid, fondid ja pildid
-- `moodulid/moodul1` kuni `moodulid/moodul4` - moodulite sisu kaustadena
-- `moodulid/*.zip` - moodulite pakendatud väljundid
-- `repo-lingid.txt` - kõigi GitHub repode ja avaliku lehe lingid
+- `index.html` ja teised HTML-failid: GitHub Pagesi build
+- `assets/`: buildi JavaScript, fondid, pildid ja muud veebifailid
+- `moodulid/moodul1`: veebikujunduse materjalid
+- `moodulid/moodul2`: genereeritud pildid, promptid ja optimeeritud failid
+- `moodulid/moodul3`: front-endi lähtekood
+- `moodulid/moodul4`: Expressi backend, andmebaas, testid ja dokumentatsioon
+- `moodulid/*.zip`: moodulite pakendatud versioonid
+- `repo-lingid.txt`: repode ja avaliku lehe lingid
 
-## Moodulid
+## Lähtekood ja build
 
-- `moodulid/moodul1` - veebikujunduse materjalid ja renderdused
-- `moodulid/moodul2` - AI pildimaterjal, optimeeritud failid ja promptid
-- `moodulid/moodul3` - front-end lähtekood
-- `moodulid/moodul4` - back-end kood ja dokumentatsioon
-- `moodulid/moodul1.zip` kuni `moodulid/moodul4.zip` - moodulite zip-väljundid
+Moodul 3 on front-endi põhiallikas. Moodul 4 kasutab sama visuaalset süsteemi,
+kuid renderdab andmed ja vormid serveris. Lõpurepo ei ole eraldi kolmas
+lähtekood, vaid nende moodulite peegel koos Pagesi buildiga.
 
-## Avalik leht
+Korduv sünkroonimine:
 
-GitHub Pages aadress:
+```powershell
+node scripts/sync-exam.mjs
+```
 
-https://taan1el.github.io/Multimeedia_eksam/
+Skript:
+
+1. kopeerib Moodul 3 ja Moodul 4 Gitis jälgitavad failid lõpureposse;
+2. käivitab Moodul 3 production buildi;
+3. uuendab root HTML-faile ja `assets/` kausta.
+
+Skript ei loo ZIP-faile. Need tehakse uuesti alles lõpliku esitamise ajal.
+
+## Kontrollitud kvaliteet
+
+Moodul 4 sisaldab integratsiooni-, brauseri-, ligipääsetavuse ja HTML-i teste.
+Viimase kontrolli tulemused:
+
+[`moodulid/moodul4/docs/testid-ja-kvaliteet.md`](moodulid/moodul4/docs/testid-ja-kvaliteet.md)
+
+Kohalikud lõppkontrollid andsid kolmel mobiili- ja kolmel desktopi Lighthouse
+mõõtmisel igas kategoorias tulemuseks 100.
+
+## Lingid
+
+- GitHub Pages: https://taan1el.github.io/Multimeedia_eksam/
+- repode täielik nimekiri: [`repo-lingid.txt`](repo-lingid.txt)
