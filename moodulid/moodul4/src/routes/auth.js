@@ -42,6 +42,7 @@ authRouter.post("/logout", requireAuth, (req, res) => {
       res.status(500).json({ error: "Could not log out" });
       return;
     }
+    res.clearCookie("slow_pour_sid");
     res.json({ ok: true });
   });
 });

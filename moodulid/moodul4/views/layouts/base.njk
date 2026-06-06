@@ -3,14 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F6F2EA" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <title>{{ title }} — Slow Pour</title>
     <meta
       name="description"
       content="{{ description or 'Slow Pour — väikepartii kohviröstikoda Tallinnas. Käsitsi röstitud kohv, aeglaselt ja hoolega.' }}"
     />
     {# Fonts are vendored locally in tokens.css (@font-face) — no CDN. #}
-    <link rel="stylesheet" href="/src/styles/tokens.css" />
-    <link rel="stylesheet" href="/src/styles/main.css" />
+    {% if inlineStyles %}
+    <style>{{ inlineStyles | safe }}</style>
+    {% else %}
+    <link rel="stylesheet" href="/build/main.css" />
+    {% endif %}
   </head>
   <body>
     <a class="skip-link" href="#main">Liigu sisu juurde</a>
@@ -22,6 +27,6 @@
 
     {% include "partials/footer.njk" %}
 
-    <script type="module" src="/src/scripts/main.js"></script>
+    <script type="module" src="/build/main.js"></script>
   </body>
 </html>

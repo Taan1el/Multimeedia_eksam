@@ -7,7 +7,7 @@
     <div class="detail__media">
       <picture>
         <source srcset="/assets/img/{{ coffee.img }}.avif" type="image/avif" />
-        <img class="carousel__img" src="/assets/img/{{ coffee.img }}.webp" alt="{{ coffee.nimi }} — kohvipakk" width="600" height="600" />
+        <img class="carousel__img" src="/assets/img/{{ coffee.img }}.webp" alt="{{ coffee.nimi }} — kohvipakk" width="600" height="600" fetchpriority="high" decoding="async" />
       </picture>
     </div>
 

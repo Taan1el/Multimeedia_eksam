@@ -23,7 +23,7 @@
       {% if sent %}<div class="form-status">Sõnum saadetud.</div>{% endif %}
       <form class="contact-form" method="post" action="/kontakt">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-        <label class="field"><span>Nimi</span><input name="name" value="{{ form.name or '' }}" required /></label>
+        <label class="field"><span>Nimi</span><input name="name" type="text" value="{{ form.name or '' }}" required /></label>
         <label class="field"><span>E-post</span><input name="email" type="email" value="{{ form.email or '' }}" required /></label>
         <label class="field"><span>Sõnum</span><textarea name="message" rows="6" required>{{ form.message or '' }}</textarea></label>
         <button class="btn btn--primary" type="submit">Saada</button>

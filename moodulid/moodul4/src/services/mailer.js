@@ -24,7 +24,7 @@ export async function sendContactMessage({ name, email, message }) {
   });
 
   if (!config.smtp.host) {
-    console.log("Contact message accepted", info.message);
+    console.log("Contact message accepted", info.messageId);
   }
 
   return info;

@@ -12,13 +12,13 @@
     {% include "partials/errors.njk" %}
     <form class="form-card" method="post" action="{{ action }}">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
-      <label class="field"><span>Nimi</span><input name="nimi" value="{{ coffee.nimi }}" required /></label>
-      <label class="field"><span>Päritolu</span><input name="paritolu" value="{{ coffee.paritolu }}" required /></label>
-      <label class="field"><span>Röstiaste</span><input name="rostitase" value="{{ coffee.rostitase }}" required /></label>
-      <label class="field"><span>Maitseprofiil</span><input name="maitseprofiil" value="{{ coffee.maitseprofiil }}" required /></label>
+      <label class="field"><span>Nimi</span><input name="nimi" type="text" value="{{ coffee.nimi }}" required /></label>
+      <label class="field"><span>Päritolu</span><input name="paritolu" type="text" value="{{ coffee.paritolu }}" required /></label>
+      <label class="field"><span>Röstiaste</span><input name="rostitase" type="text" value="{{ coffee.rostitase }}" required /></label>
+      <label class="field"><span>Maitseprofiil</span><input name="maitseprofiil" type="text" value="{{ coffee.maitseprofiil }}" required /></label>
       <label class="field"><span>Hind</span><input name="hind" type="number" step="0.01" min="0" value="{{ coffee.hind }}" required /></label>
-      <label class="field"><span>Kaal</span><input name="kaal" value="{{ coffee.kaal }}" required /></label>
-      <label class="field"><span>Pilt</span><input name="pilt" value="{{ coffee.pilt }}" /></label>
+      <label class="field"><span>Kaal</span><input name="kaal" type="text" value="{{ coffee.kaal }}" required /></label>
+      <label class="field"><span>Pilt</span><input name="pilt" type="text" value="{{ coffee.pilt }}" /></label>
       <label class="field"><span>Kirjeldus</span><textarea name="kirjeldus" rows="5" required>{{ coffee.kirjeldus }}</textarea></label>
       <div class="form-actions">
         <button class="btn btn--primary" type="submit">Salvesta</button>

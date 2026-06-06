@@ -1,29 +1,19 @@
 # Mailtrapi test
 
-Kontaktivormi e-kirjade saatmist testiti Mailtrapi sandboxiga. Rakendus kasutab
-Nodemailerit ja loeb SMTP seadistuse `.env` failist. SMTP parooli ega muid
-saladusi Gitti ei lisata.
+Kontaktivormi saatmist kontrollisin Mailtrapi sandboxiga 5. juunil 2026.
+Rakendus võttis `POST /kontakt` vormi vastu ja Nodemailer saatis kirja SMTP
+kaudu Mailtrapi testpostkasti.
 
-Testi eesmärk oli kontrollida, et kontaktivormi `POST /kontakt` route võtab
-vormiandmed vastu ja saadab kirja välise SMTP teenuse kaudu.
+![Slow Pour kontaktivormi test Mailtrapis](assets/mailtrap-kontaktivorm.png)
 
-## Tõendus
+Ekraanipildil on näha:
 
-Lisa siia ekraanipilt Mailtrapi sandboxist pärast testkirja saatmist:
-
-```text
-docs/assets/mailtrap-kontaktivorm.png
-```
-
-Ekraanipildil peaks olema näha:
-
-- Mailtrapi sandbox
 - kirja pealkiri `Slow Pour kontaktivorm`
 - saatja `Slow Pour <no-reply@slowpour.test>`
 - saaja `tere@slowpour.ee`
-- testkirja sisu
+- vormilt saadetud nimi, e-post ja sõnum
 
-## Kasutatud seadistus
+Testis kasutatud muutujate kuju:
 
 ```env
 SMTP_HOST=sandbox.smtp.mailtrap.io
@@ -35,5 +25,5 @@ CONTACT_TO=tere@slowpour.ee
 CONTACT_FROM="Slow Pour <no-reply@slowpour.test>"
 ```
 
-`SMTP_USER` ja `SMTP_PASS` on päris projektis ainult lokaalses `.env` failis või
-serveri keskkonnamuutujates.
+Kasutajanimi ja parool asuvad ainult lokaalses `.env` failis või serveri
+keskkonnamuutujates. Neid ei ole repos ega ekraanipildil.

@@ -42,10 +42,10 @@
       <fieldset class="order__group">
         <legend>Kontakt</legend>
         <div class="order__row">
-          <label class="field"><span>Nimi</span><input name="customerName" value="{{ form.customerName or '' }}" required /></label>
+          <label class="field"><span>Nimi</span><input name="customerName" type="text" value="{{ form.customerName or '' }}" required /></label>
           <label class="field"><span>E-post</span><input name="email" type="email" value="{{ form.email or '' }}" required /></label>
         </div>
-        <label class="field"><span>Telefon</span><input name="phone" value="{{ form.phone or '' }}" /></label>
+        <label class="field"><span>Telefon</span><input name="phone" type="tel" value="{{ form.phone or '' }}" /></label>
         <label class="field"><span>Aadress</span><textarea name="address" rows="3" required>{{ form.address or '' }}</textarea></label>
         <label class="field"><span>Märkus</span><textarea name="notes" rows="3">{{ form.notes or '' }}</textarea></label>
       </fieldset>

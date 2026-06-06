@@ -3,7 +3,7 @@
   <a class="coffee-card__media" href="/kohvisordid/{{ c.id }}" aria-label="Vaata: {{ c.nimi }}">
     <picture>
       <source srcset="/assets/img/{{ c.img }}.avif" type="image/avif" />
-      <img src="/assets/img/{{ c.img }}.webp" alt="{{ c.nimi }} — kohvipakk" loading="lazy" width="400" height="400" />
+      <img src="/assets/img/{{ c.img }}.webp" alt="{{ c.nimi }} — kohvipakk" loading="lazy" decoding="async" width="400" height="400" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc(50vw - 36px), 400px" />
     </picture>
   </a>
   <div class="coffee-card__body">

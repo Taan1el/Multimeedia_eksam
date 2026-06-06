@@ -16,6 +16,12 @@ import { listEvents } from "../repositories/events.js";
 
 export const pagesRouter = Router();
 
+function cleanQueryText(value, maxLength) {
+  return typeof value === "string"
+    ? value.normalize("NFKC").trim().slice(0, maxLength)
+    : "";
+}
+
 pagesRouter.get("/", (req, res) => {
   const coffees = listCoffees().map(decorate);
   res.render("pages/index", {
@@ -28,9 +34,9 @@ pagesRouter.get("/", (req, res) => {
 
 pagesRouter.get("/kohvisordid", (req, res) => {
   const query = {
-    paritolu: req.query.paritolu || "",
-    rostitase: req.query.rostitase || req.query.roast || "",
-    sort: req.query.sort || ""
+    paritolu: cleanQueryText(req.query.paritolu, 160),
+    rostitase: cleanQueryText(req.query.rostitase || req.query.roast, 80),
+    sort: ["asc", "desc"].includes(req.query.sort) ? req.query.sort : ""
   };
   res.render("pages/kohvisordid", {
     title: "Kohvisordid",

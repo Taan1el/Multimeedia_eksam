@@ -62,7 +62,10 @@ adminRouter.post("/login", loginRules, async (req, res) => {
 });
 
 adminRouter.post("/logout", requireAuth, (req, res) => {
-  req.session.destroy(() => res.redirect("/admin/login"));
+  req.session.destroy(() => {
+    res.clearCookie("slow_pour_sid");
+    res.redirect("/admin/login");
+  });
 });
 
 adminRouter.get("/", requireAuth, (req, res) => {
