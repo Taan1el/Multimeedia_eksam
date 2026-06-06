@@ -24,11 +24,13 @@ function revealCards(container) {
   if (!ALLOW_MOTION || !container) return;
   const cards = container.querySelectorAll(".coffee-card");
   if (!cards.length) return;
+  // once + clearProps so cards always settle back to their natural grid
+  // position (no residual transform that could leave a card sitting lower).
   gsap.from(cards, {
-    opacity: 0, y: 48, scale: 0.94, duration: 0.7, ease: "power3.out", stagger: 0.1,
-    scrollTrigger: { trigger: container, start: "top 88%" },
+    opacity: 0, y: 32, duration: 0.6, ease: "power3.out", stagger: 0.08,
+    clearProps: "transform,opacity",
+    scrollTrigger: { trigger: container, start: "top 92%", once: true },
   });
-  ScrollTrigger.refresh();
 }
 
 function initHeroVideoScroll() {
@@ -74,6 +76,115 @@ toggle?.addEventListener("click", () => {
   localStorage.setItem("theme", isDark ? "dark" : "light");
   console.log(`[theme] -> ${isDark ? "dark" : "light"}`);
 });
+
+/* ---- Cart (single coffee type, adjustable quantity; localStorage) -------- */
+const CART_KEY = "slowpour-cart";
+const cartEl = document.getElementById("cart");
+const cartToggle = document.getElementById("cart-toggle");
+const cartPanel = document.getElementById("cart-panel");
+const cartCount = document.getElementById("cart-count");
+let cartCoffees = [];
+
+function readCart() {
+  try {
+    const c = JSON.parse(localStorage.getItem(CART_KEY));
+    return c && c.id && c.qty > 0 ? c : null;
+  } catch {
+    return null;
+  }
+}
+function writeCart(cart) {
+  if (cart && cart.qty > 0) localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  else localStorage.removeItem(CART_KEY);
+  renderCart();
+}
+
+// Single coffee type: a different coffee replaces the line; the same one adds up.
+export function addToCart(id, qty = 1) {
+  const current = readCart();
+  const next = current && current.id === id ? { id, qty: current.qty + qty } : { id, qty };
+  writeCart(next);
+  // Defer so this same click finishes bubbling before the panel opens —
+  // otherwise the document outside-click handler closes it immediately.
+  setTimeout(openCart, 0);
+  console.log(`[cart] add id=${id} -> qty ${next.qty}`);
+}
+
+function renderCart() {
+  const cart = readCart();
+  const count = cart ? cart.qty : 0;
+  if (cartCount) {
+    cartCount.textContent = count;
+    cartCount.hidden = count === 0;
+  }
+  if (cartToggle) {
+    cartToggle.setAttribute("aria-label", count ? `Ava ostukorv (${count})` : "Ava ostukorv");
+  }
+  if (!cartPanel) return;
+  const c = cart && cartCoffees.find((x) => x.id === cart.id);
+  if (!cart || !c) {
+    cartPanel.innerHTML = `<p class="cart-panel__empty">Korv on tühi.</p>`;
+    return;
+  }
+  const lineTotal = (Number(c.hind) * cart.qty).toFixed(2);
+  cartPanel.innerHTML = `
+    <p class="cart-panel__title">Sinu korv</p>
+    <div class="cart-line">
+      <div class="cart-line__info">
+        <span class="cart-line__name">${c.nimi}</span>
+        <span class="cart-line__meta num">€${Number(c.hind).toFixed(2)} · ${c.kaal}</span>
+      </div>
+      <button type="button" class="cart-line__remove" data-cart-remove aria-label="Eemalda korvist">×</button>
+    </div>
+    <div class="cart-line__row">
+      <div class="qty">
+        <button type="button" class="qty__btn" data-cart-qty="-1" aria-label="Vähenda kogust">−</button>
+        <span class="qty__input num" aria-live="polite">${cart.qty}</span>
+        <button type="button" class="qty__btn" data-cart-qty="1" aria-label="Suurenda kogust">+</button>
+      </div>
+      <span class="cart-line__total num">€${lineTotal}</span>
+    </div>
+    <a class="btn btn--primary btn--sm cart-panel__checkout" href="tellimus.html?id=${c.id}">Vormista tellimus →</a>`;
+}
+
+function openCart() {
+  if (!cartPanel || !cartToggle) return;
+  cartPanel.hidden = false;
+  cartToggle.setAttribute("aria-expanded", "true");
+}
+function closeCart() {
+  if (!cartPanel || !cartToggle) return;
+  cartPanel.hidden = true;
+  cartToggle.setAttribute("aria-expanded", "false");
+}
+
+async function initCart() {
+  if (!cartToggle) return;
+  cartCoffees = await loadCoffees();
+  renderCart();
+
+  cartToggle.addEventListener("click", () => {
+    if (cartPanel.hidden) openCart();
+    else closeCart();
+  });
+  cartPanel.addEventListener("click", (e) => {
+    const step = e.target.closest("[data-cart-qty]");
+    const remove = e.target.closest("[data-cart-remove]");
+    const cart = readCart();
+    if (step && cart) {
+      writeCart({ id: cart.id, qty: Math.max(0, cart.qty + Number(step.dataset.cartQty)) });
+    } else if (remove) {
+      writeCart(null);
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (!cartPanel.hidden && cartEl && !cartEl.contains(e.target)) closeCart();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeCart();
+  });
+}
+initCart();
 
 /* ---- Mobile nav toggle --------------------------------------------------- */
 const navToggle = document.getElementById("nav-toggle");
@@ -273,6 +384,7 @@ async function initDetail() {
     .map(([k, v]) => `<div class="specs__row"><dt>${k}</dt><dd>${v}</dd></div>`)
     .join("");
   document.getElementById("detail-cta").href = `tellimus.html?id=${c.id}`;
+  document.getElementById("detail-add-cart")?.addEventListener("click", () => addToCart(c.id, 1));
 
   initCarousel(c.nimi, [roastImage(c.rostitase), "hero", "pattern"]);
 
@@ -359,6 +471,9 @@ async function initOrder() {
 
   select.addEventListener("change", render);
   qtyInput.addEventListener("input", render);
+  document.getElementById("order-add-cart")?.addEventListener("click", () =>
+    addToCart(Number(select.value), Math.max(1, Number(qtyInput.value) || 1))
+  );
   form.querySelectorAll("[data-qty]").forEach((btn) =>
     btn.addEventListener("click", () => {
       qtyInput.value = Math.max(1, (Number(qtyInput.value) || 1) + Number(btn.dataset.qty));
