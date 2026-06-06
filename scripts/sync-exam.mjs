@@ -91,6 +91,12 @@ function refreshPagesBuild() {
     copyFileSync(join(dist, file), join(combinedRoot, file));
   }
 
+  for (const entry of readdirSync(dist, { withFileTypes: true })) {
+    if (entry.isFile() && !entry.name.endsWith(".html")) {
+      copyFileSync(join(dist, entry.name), join(combinedRoot, entry.name));
+    }
+  }
+
   for (const file of gitFiles(combinedRoot)) {
     if (
       !file.includes("/") &&
