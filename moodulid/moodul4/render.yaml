@@ -1,0 +1,45 @@
+# Render Blueprint — one-click deploy for the Slow Pour back-end (Moodul 4).
+# Render -> New -> Blueprint -> vali Eksam_moodul4 repo. Täida allpool "sync: false" võtmed.
+services:
+  - type: web
+    name: slow-pour-backend
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run migrate
+    startCommand: node app.js
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render genereerib turvalise sessioonisaladuse
+      - key: SESSION_SECRET
+        generateValue: true
+      # Admin luuakse migratsioonis nendest väärtustest (täida dashboardis)
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      # E-kirja saatmine (vaba: Brevo / Mailtrap / Gmail app password). Tühjaks jättes logitakse.
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: CONTACT_TO
+        sync: false
+      - key: CONTACT_FROM
+        sync: false
+    # Render määrab PORT automaatselt — config.js loeb process.env.PORT.
+    #
+    # SQLite püsivuseks (valikuline, tasuline ketas): eemalda kommentaarid.
+    # disk:
+    #   name: slow-pour-data
+    #   mountPath: /opt/render/project/src/data
+    #   sizeGB: 1

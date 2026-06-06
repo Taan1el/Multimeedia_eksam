@@ -3,7 +3,7 @@ import { config } from "../config.js";
 
 export async function sendContactMessage({ name, email, message }) {
   const transporter =
-    config.nodeEnv !== "production" || !config.smtp.host
+    !config.smtp.host
       ? nodemailer.createTransport({ jsonTransport: true })
       : nodemailer.createTransport({
           host: config.smtp.host,
@@ -23,7 +23,7 @@ export async function sendContactMessage({ name, email, message }) {
     text: `Nimi: ${name}\nE-post: ${email}\n\n${message}`
   });
 
-  if (config.nodeEnv !== "production" || !config.smtp.host) {
+  if (!config.smtp.host) {
     console.log("Contact message accepted", info.message);
   }
 
