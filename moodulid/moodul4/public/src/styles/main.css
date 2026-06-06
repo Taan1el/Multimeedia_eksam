@@ -356,7 +356,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, summary:focus-v
 .footer-wordmark__sub { font-size: var(--overline); letter-spacing: 0.22em; text-transform: uppercase; color: var(--sp-primary-light); }
 .footer-brand__tag { color: rgba(246,242,234,0.72); line-height: var(--leading-body); }
 .footer-social { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.footer-social__btn { font-size: var(--caption); color: var(--fg-on-dark); background: rgba(246,242,234,0.08); border: 1px solid rgba(246,242,234,0.14); padding: 6px 14px; border-radius: var(--radius-pill); text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.footer-social__btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--fg-on-dark); background: rgba(246,242,234,0.08); border: 1px solid rgba(246,242,234,0.14); border-radius: var(--radius-pill); text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.footer-social__btn svg { flex: 0 0 auto; }
 .footer-social__btn:hover { background: var(--sp-primary); color: #fff; }
 .footer-col { display: flex; flex-direction: column; gap: var(--space-3); }
 .footer-col__title { font-family: var(--font-body); font-size: var(--overline); font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: var(--tracking-overline); color: var(--sp-primary-light); margin: 0 0 var(--space-2); }
