@@ -136,6 +136,22 @@ pagesRouter.post("/tellimus", orderRules, (req, res) => {
   });
 });
 
+pagesRouter.get("/kkk", (req, res) => {
+  res.render("pages/kkk", { title: "Korduma kippuvad küsimused" });
+});
+
+pagesRouter.get("/tarne", (req, res) => {
+  res.render("pages/tarne", { title: "Tarne" });
+});
+
+pagesRouter.get("/tagastus", (req, res) => {
+  res.render("pages/tagastus", { title: "Tagastused" });
+});
+
+pagesRouter.get("/kohvik", (req, res) => {
+  res.render("pages/kohvik", { title: "Slow Pour kohvik" });
+});
+
 const supportPages = {
   "/rostimisprotsess": {
     title: "Röstimisprotsess",
@@ -146,26 +162,6 @@ const supportPages = {
     title: "Päritolu",
     heading: "Päritolu on maitse alus",
     body: "Valime kohvid piirkondadest, kus kasvutingimused, sort ja töötlus annavad tassile selge iseloomu."
-  },
-  "/kkk": {
-    title: "KKK",
-    heading: "Korduma kippuvad küsimused",
-    body: "Kui sa ei tea, millist rösti valida, alusta keskmisest röstist. Tellimuse või töötoa küsimustega kirjuta kontaktivormi kaudu."
-  },
-  "/tarne": {
-    title: "Tarne",
-    heading: "Tarne ja kättesaamine",
-    body: "Tellimused pannakse teele pärast röstimist. Tallinnas saab kokku leppida ka kohapealse kättesaamise."
-  },
-  "/tagastused": {
-    title: "Tagastused",
-    heading: "Tagastused",
-    body: "Kui tellimusega on probleem, võta ühendust ja leiame lahenduse. Avamata pakendi saab tagastada kokkuleppel."
-  },
-  "/kohvik": {
-    title: "Kohvik",
-    heading: "Kohvik röstikoja juures",
-    body: "Röstikoja kohvik on väike koht aeglaseks tassiks, cuppinguks ja kohvivaliku proovimiseks."
   }
 };
 
