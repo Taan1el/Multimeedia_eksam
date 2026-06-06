@@ -12,6 +12,7 @@ import { contactRules } from "../validators/contact.js";
 import { orderRules } from "../validators/order.js";
 import { sendContactMessage } from "../services/mailer.js";
 import { createOrder } from "../repositories/orders.js";
+import { listEvents } from "../repositories/events.js";
 
 export const pagesRouter = Router();
 
@@ -20,7 +21,8 @@ pagesRouter.get("/", (req, res) => {
   res.render("pages/index", {
     title: "Avaleht",
     featured: coffees.slice(0, 3),
-    popular: coffees
+    popular: coffees,
+    events: listEvents()
   });
 });
 

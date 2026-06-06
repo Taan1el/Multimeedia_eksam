@@ -84,42 +84,17 @@
       <h2>Sündmused &amp; uudised</h2>
     </div>
     <ul class="events">
+      {% for event in events %}
       <li class="event">
-        <span class="event__date num">14. juuni</span>
+        <span class="event__date num">{{ event.date_label }}</span>
         <div class="event__info">
-          <span class="event__title">Laupäevane cupping-seanss</span>
-          <span class="event__loc">Röstikoda, Tallinn</span>
+          <span class="event__title">{{ event.title }}</span>
+          <span class="event__loc">{{ event.location }}</span>
         </div>
-        <span class="event__spots num">8 kohta</span>
+        <span class="event__spots num">Vabu kohti: {{ event.spots_free }} / {{ event.spots_total }}</span>
         <a class="event__cta" href="/kontakt">Registreeru →</a>
       </li>
-      <li class="event">
-        <span class="event__date num">21. juuni</span>
-        <div class="event__info">
-          <span class="event__title">Käsitsi valamise töötuba (V60)</span>
-          <span class="event__loc">Röstikoda, Tallinn</span>
-        </div>
-        <span class="event__spots num">12 kohta</span>
-        <a class="event__cta" href="/kontakt">Registreeru →</a>
-      </li>
-      <li class="event">
-        <span class="event__date num">05. juuli</span>
-        <div class="event__info">
-          <span class="event__title">Päritolujutt: Etioopia</span>
-          <span class="event__loc">Online</span>
-        </div>
-        <span class="event__spots num">30 kohta</span>
-        <a class="event__cta" href="/kontakt">Registreeru →</a>
-      </li>
-      <li class="event">
-        <span class="event__date num">19. juuli</span>
-        <div class="event__info">
-          <span class="event__title">Suvine kohviturg</span>
-          <span class="event__loc">Telliskivi Loomelinnak</span>
-        </div>
-        <span class="event__spots"></span>
-        <a class="event__cta" href="/kontakt">Registreeru →</a>
-      </li>
+      {% endfor %}
     </ul>
   </div>
 </section>

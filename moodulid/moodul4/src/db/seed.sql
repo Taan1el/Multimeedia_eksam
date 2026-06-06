@@ -13,6 +13,16 @@ CREATE TABLE IF NOT EXISTS kohvisort (
   pilt          TEXT
 );
 
+CREATE TABLE IF NOT EXISTS event (
+  id          INTEGER PRIMARY KEY,
+  date_label  TEXT    NOT NULL,
+  title       TEXT    NOT NULL,
+  location    TEXT    NOT NULL,
+  spots_free  INTEGER NOT NULL CHECK (spots_free >= 0),
+  spots_total INTEGER NOT NULL CHECK (spots_total >= 0),
+  CHECK (spots_free <= spots_total)
+);
+
 INSERT INTO kohvisort (id, nimi, paritolu, rostitase, maitseprofiil, hind, kaal, kirjeldus, pilt) VALUES
 (1, 'Aeglane Hommik',     'Etioopia, Yirgacheffe',       'Hele',          'õistaim, sidrun, mesi',                 13.50, '250 g', 'Erefilmijaama oad Yirgacheffe mägedelt. Õrn ja lilleline, sidruse särtsuga. Parim käsitsi valatuna (V60).', 'coffee-light.webp'),
 (2, 'Laisa Päeva Blend',  'Brasiilia + Colombia',        'Keskmine',      'šokolaad, sarapuupähkel, karamell',     12.00, '250 g', 'Meie igapäevane lemmik. Tasakaalukas, magus ja ümar — sobib nii espressoks kui filtriks.', 'coffee-medium.webp'),
@@ -22,3 +32,9 @@ INSERT INTO kohvisort (id, nimi, paritolu, rostitase, maitseprofiil, hind, kaal,
 (6, 'Vaikne Tund',        'Peruu, Cajamarca (mahe)',     'Hele',          'õun, pruun suhkur, pähkel',             13.50, '250 g', 'Mahe Peruu kõrgmäestiku oad. Pehme, magus ja kerge — õuna ja pähkli noodid.', 'coffee-light.webp'),
 (7, 'Sügav Uni',          'India, Monsooned Malabar',    'Tume',          'maamuld, kakao, madal hapsus',          12.50, '250 g', 'Monsooned Malabar, küps ja maine. Peaaegu hapsuseta, kakao ja maamulla sügavus.', 'coffee-dark.webp'),
 (8, 'Esimene Vihm',       'Costa Rica, Tarrazú',         'Keskmine',      'apelsin, kakao, karamell',              14.00, '250 g', 'Costa Rica Tarrazú elegants: apelsini särtsakus ja karamelli magusus tasakaalus.', 'coffee-medium.webp');
+
+INSERT INTO event (id, date_label, title, location, spots_free, spots_total) VALUES
+(1, '14. juuni', 'Laupäevane cupping-seanss', 'Röstikoda, Tallinn', 8, 12),
+(2, '21. juuni', 'Käsitsi valamise töötuba (V60)', 'Röstikoda, Tallinn', 12, 16),
+(3, '05. juuli', 'Päritolujutt: Etioopia', 'Online', 30, 40),
+(4, '19. juuli', 'Suvine kohviturg', 'Telliskivi Loomelinnak', 8, 20);

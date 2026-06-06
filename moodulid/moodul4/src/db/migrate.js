@@ -49,6 +49,7 @@ if (!fs.existsSync(seedPath)) {
 }
 
 db.exec("DROP TABLE IF EXISTS orders;");
+db.exec("DROP TABLE IF EXISTS event;");
 db.exec("DROP TABLE IF EXISTS kohvisort;");
 db.exec(fs.readFileSync(seedPath, "utf8"));
 db.exec(orderSchema);
