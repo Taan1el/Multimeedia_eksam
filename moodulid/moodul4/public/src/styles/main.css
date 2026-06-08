@@ -688,6 +688,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, summary:focus-v
   .mission__media, .dark .mission__media { background-image: none; }
 }
 
+/* ---- Café location map ---------------------------------------------------- */
+.map { margin: var(--space-5) 0 var(--space-4); }
+.map__frame { width: 100%; aspect-ratio: 16 / 10; border: 1px solid var(--border-hairline); border-radius: var(--radius-base); display: block; }
+.map__cap { margin-top: var(--space-2); font-size: var(--caption); }
+
 /* ---- Reduced motion: respect the user's preference ------------------------ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
