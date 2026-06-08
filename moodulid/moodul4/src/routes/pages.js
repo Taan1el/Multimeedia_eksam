@@ -159,6 +159,11 @@ pagesRouter.get("/kohvik", (req, res) => {
 });
 
 const supportPages = {
+  "/meie-lugu": {
+    title: "Meie lugu",
+    heading: "Aeglaselt, hoolega",
+    body: "Slow Pour sai alguse väikesest köögist Tallinnas. Usume, et parim maitse tuleb ajast ja tähelepanust — röstime käsitsi, väikestes partiides ning laseme igal oal oma iseloomu säilitada."
+  },
   "/rostimisprotsess": {
     title: "Röstimisprotsess",
     heading: "Aeglane röst, puhas maitse",
