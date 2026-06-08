@@ -58,6 +58,7 @@ app.use(
         fontSrc: ["'self'"],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
+        frameSrc: ["'self'", "https://www.openstreetmap.org"],
         imgSrc: ["'self'", "data:"],
         mediaSrc: ["'self'"],
         objectSrc: ["'none'"],
